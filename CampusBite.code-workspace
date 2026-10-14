@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../CampusBite"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "CAMPUSBITES"
+	}
+}

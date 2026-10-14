@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAMPUS BITE - College Canteen Ordering</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- LOGIN PAGE SECTION -->
+    <div id="login-section" class="auth-container">
+        <div class="auth-card">
+            <div class="brand-logo">
+                <i class="fa-solid fa-utensils"></i>
+                <h2>CAMPUS BITE</h2>
+                <p>Your Favorite Canteen, Just a Click Away!</p>
+            </div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email"><i class="fa-solid fa-envelope"></i> College Email</label>
+                    <input type="email" id="login-email" placeholder="student@college.edu" required>
+                    <small id="email-error" class="error-msg"></small>
+                </div>
+                <div class="form-group">
+                    <label for="login-password"><i class="fa-solid fa-lock"></i> Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="login-password" placeholder="Enter your password" required>
+                        <i class="fa-solid fa-eye" id="toggle-password"></i>
+                    </div>
+                    <small id="password-error" class="error-msg"></small>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Login to Canteen</button>
+                <p class="demo-credentials">Demo: Use any valid email & password (min 6 chars)</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- MAIN APP CONTAINER (Hidden until login) -->
+    <div id="app-container" class="app-container hidden">
+        <!-- NAVIGATION BAR -->
+        <header class="navbar">
+            <div class="nav-brand">
+                <i class="fa-solid fa-utensils"></i>
+                <span>CAMPUS BITE</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#" class="nav-link active" data-target="home-tab"><i class="fa-solid fa-house"></i> Home</a>
+                <a href="#" class="nav-link" data-target="menu-tab"><i class="fa-solid fa-book-open"></i> Menu</a>
+                <a href="#" class="nav-link" data-target="cart-tab">
+                    <i class="fa-solid fa-cart-shopping"></i> Cart <span id="cart-badge" class="badge">0</span>
+                </a>
+                <a href="#" class="nav-link" data-target="orders-tab"><i class="fa-solid fa-bag-shopping"></i> My Orders</a>
+            </nav>
+            <div class="nav-right">
+                <span id="user-display" class="user-display"><i class="fa-solid fa-user-circle"></i> Student</span>
+                <button id="logout-btn" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+                <button id="mobile-menu-btn" class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+
+            <!-- 1. HOME TAB -->
+            <section id="home-tab" class="tab-section active">
+                <div class="hero-banner">
+                    <div class="hero-text">
+                        <h1>Hungry? Grab a Bite!</h1>
+                        <p>Skip the canteen queues. Order fresh food online, choose your pickup time, and pick up your hot meal instantly.</p>
+                        <button class="btn btn-primary btn-lg" onclick="switchTab('menu-tab')">Explore Menu <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                    <div class="hero-image">
+                        <div class="hero-emoji-card">🍔 🍕 🍜 🥤</div>
+                    </div>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fa-solid fa-bolt"></i>
+                        <h3>Lightning Fast</h3>
+                        <p>Order ahead and pick up your food without waiting in long queues.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fa-solid fa-utensils"></i>
+                        <h3>Fresh & Hygienic</h3>
+                        <p>Prepared instantly by our expert campus chefs using quality ingredients.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fa-solid fa-wallet"></i>
+                        <h3>Easy Payments</h3>
+                        <p>Pay securely via UPI, Cards, or choose Cash on Pickup.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. MENU TAB -->
+            <section id="menu-tab" class="tab-section">
+                <div class="section-header">
+                    <h2>Canteen Menu</h2>
+                    <p>Select your favorite dishes and add them to your cart</p>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="category-filters">
+                    <button class="filter-btn active" data-category="All">All Items</button>
+                    <button class="filter-btn" data-category="Breakfast">Breakfast</button>
+                    <button class="filter-btn" data-category="Lunch">Lunch</button>
+                    <button class="filter-btn" data-category="Snacks">Snacks</button>
+                    <button class="filter-btn" data-category="Drinks">Drinks</button>
+                </div>
+
+                <!-- Food Items Grid -->
+                <div id="food-grid" class="food-grid">
+                    <!-- Dynamic food items populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- 3. CART TAB -->
+            <section id="cart-tab" class="tab-section">
+                <div class="section-header">
+                    <h2>Your Shopping Cart</h2>
+                    <p>Review your items before proceeding to checkout</p>
+                </div>
+
+                <div class="cart-layout">
+                    <div class="cart-items-container">
+                        <div id="cart-items-list">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <div class="cart-summary-card">
+                        <h3>Order Summary</h3>
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span id="cart-subtotal">₹0</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Canteen Tax (5%)</span>
+                            <span id="cart-tax">₹0</span>
+                        </div>
+                        <hr>
+                        <div class="summary-row total-row">
+                            <span>Total Amount</span>
+                            <span id="cart-total">₹0</span>
+                        </div>
+
+                        <!-- Pickup Date & Time -->
+                        <div class="checkout-section">
+                            <h4><i class="fa-solid fa-calendar-days"></i> Pickup Schedule</h4>
+                            <div class="form-group">
+                                <label for="pickup-date">Select Pickup Date:</label>
+                                <input type="date" id="pickup-date" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pickup-time">Select Pickup Time Slot:</label>
+                                <select id="pickup-time" class="form-control" required>
+                                    <option value="">-- Choose Time Slot --</option>
+                                    <option value="09:00 AM - 09:30 AM">09:00 AM - 09:30 AM</option>
+                                    <option value="09:30 AM - 10:00 AM">09:30 AM - 10:00 AM</option>
+                                    <option value="10:00 AM - 10:30 AM">10:00 AM - 10:30 AM</option>
+                                    <option value="12:30 PM - 01:00 PM">12:30 PM - 01:00 PM</option>
+                                    <option value="01:00 PM - 01:30 PM">01:00 PM - 01:30 PM</option>
+                                    <option value="01:30 PM - 02:00 PM">01:30 PM - 02:00 PM</option>
+                                    <option value="04:00 PM - 04:30 PM">04:00 PM - 04:30 PM</option>
+                                    <option value="04:30 PM - 05:00 PM">04:30 PM - 05:00 PM</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Payment Options -->
+                        <div class="checkout-section">
+                            <h4><i class="fa-solid fa-wallet"></i> Payment Method</h4>
+                            <div class="form-group">
+                                <label for="payment-type">Select Payment Type:</label>
+                                <select id="payment-type" class="form-control" required>
+                                    <option value="">-- Choose Payment Type --</option>
+                                    <option value="UPI">UPI (GPay / PhonePe / Paytm)</option>
+                                    <option value="Card">Debit / Credit Card</option>
+                                    <option value="Cash">Cash on Pickup</option>
+                                </select>
+                            </div>
+
+                            <!-- Dynamic Payment Interfaces -->
+                            <div id="upi-interface" class="payment-interface hidden">
+                                <div class="payment-box">
+                                    <p><i class="fa-solid fa-qrcode"></i> Scan QR or Enter UPI ID (Demo Mode)</p>
+                                    <input type="text" id="upi-id" placeholder="username@oksbi" class="form-control">
+                                </div>
+                            </div>
+
+                            <div id="card-interface" class="payment-interface hidden">
+                                <div class="payment-box">
+                                    <p><i class="fa-solid fa-credit-card"></i> Enter Card Details (Demo Mode)</p>
+                                    <input type="text" id="card-number" placeholder="Card Number (4242 4242...)" maxlength="19" class="form-control mb-2">
+                                    <div class="card-row">
+                                        <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5" class="form-control">
+                                        <input type="password" id="card-cvv" placeholder="CVV" maxlength="4" class="form-control">
+                                    </div>
+                                    <small class="text-muted"><i class="fa-solid fa-shield-halved"></i> Secure frontend demo. Credentials are never stored.</small>
+                                </div>
+                            </div>
+
+                            <div id="cash-interface" class="payment-interface hidden">
+                                <div class="payment-box cash-box">
+                                    <p><i class="fa-solid fa-hand-holding-dollar"></i> Pay cash directly at the canteen counter when collecting your order.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button id="place-order-btn" class="btn btn-success btn-block btn-lg"><i class="fa-solid fa-circle-check"></i> Place Order</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. MY ORDERS TAB -->
+            <section id="orders-tab" class="tab-section">
+                <div class="section-header">
+                    <h2>My Order History</h2>
+                    <p>Track your current orders and view past receipts</p>
+                </div>
+                <div id="orders-container" class="orders-container">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ORDER SUCCESS MODAL -->
+    <div id="success-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+            <h2>Order Placed Successfully!</h2>
+            <p>Your order has been sent to the canteen kitchen.</p>
+            <div id="modal-order-details" class="modal-order-details">
+                <!-- Injected Order Summary -->
+            </div>
+            <button class="btn btn-primary" onclick="closeSuccessModal()">View My Orders</button>
+        </div>
+    </div>
+
+    <!-- JavaScript File -->
+    <script src="script.js"></script>
+</body>
+</html>
